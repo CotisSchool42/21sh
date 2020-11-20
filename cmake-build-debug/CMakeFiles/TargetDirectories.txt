@@ -1,0 +1,3 @@
+/Users/cotis/Desktop/21SH/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/cotis/Desktop/21SH/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/cotis/Desktop/21SH/cmake-build-debug/CMakeFiles/21SH.dir
