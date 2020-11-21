@@ -15,28 +15,22 @@
 struct		s_node				*init()
 {
 	t_node *list;
-	char buf;
-	long c;
+	int 	i;
 
-	c = 0;
-	read(STDOUT_FILENO, &c , 8);
-	if (c == DOWN_KEY || c == UP_KEY ||  c == LEFT_KEY || c == RIGHT_KEY)
-		return (NULL);
 	list = (t_node *)ft_memalloc(sizeof(t_node));
-
-/*	if (c == CHAR_RETURN)
-	{
-		*//* функция переходящая на другую строку и mi-a3 *//*
-	}
-	fprintf(stderr, "%ld", c);
- */
-
-	buf = (char)c;
-	list->data = buf;
+	list->data = "Overlord:";
+	i = ft_strlen(list->data);
 	list->next = NULL;
 	list->back = NULL;
-	write(STDERR_FILENO, &list->data, 1);
+	write(STDERR_FILENO, list->data, i);
 	return (list);
+}
+
+int		checkout(long c)
+{
+	if (c == DOWN_KEY || c == UP_KEY || c == LEFT_KEY || c == RIGHT_KEY)
+		return (0);
+	return (1);
 }
 
 struct	s_node					*endpoint(t_node *list, t_node *root)
@@ -82,14 +76,11 @@ struct		s_node				*deletehead(t_node *root)
 }
 
 /* Добавляет элементы в лист и инициализирует root */
-struct	s_node					*addelem(t_node *list, t_node *root)
+struct	s_node					*addelem(t_node *list, t_node *root, long c)
 {
 	t_node		*temp;
 	t_node		*p;
-	long 		c;
-	char 		buf;
 
-	read(STDOUT_FILENO, &c , 8);
 	if (c == LEFT_KEY || c == RIGHT_KEY)
 	{
 		list = escape(list, root, c);
@@ -98,19 +89,48 @@ struct	s_node					*addelem(t_node *list, t_node *root)
 	if (c == BSP_KEY)
 	{
 		list = deletelem(list);
-		//	write(STDERR_FILENO, &list->data, 1);
+//	write(STDERR_FILENO, &list->data, 1);
 		return (list);
 	}
+	if (c == CHAR_RETURN)
+		return (list);
 	temp = (t_node *)ft_memalloc(sizeof(t_node));
 	p = list->next;
-	buf = c;
 	list->next = temp;
-	temp->data = (char)buf;
 	temp->next = p;
+	temp->data = "d";
 	temp->back = list;
 	if (p != NULL)
 		p->back = temp;
-	write(STDERR_FILENO, &temp->data, 1);
+	write(STDERR_FILENO, list->data, 1);
 	return (temp);
 }
 
+/*
+t_node		*temp;
+t_node		*p;
+//	char 		buf;
+
+//	read(STDOUT_FILENO, &c , 8);
+if (c == LEFT_KEY || c == RIGHT_KEY)
+{
+list = escape(list, root, c);
+return (list);
+}
+if (c == BSP_KEY)
+{
+list = deletelem(list);
+//	write(STDERR_FILENO, &list->data, 1);
+return (list);
+}
+temp = (t_node *)ft_memalloc(sizeof(t_node));
+p = list->next;
+//	buf = (char)c;
+list->next = temp;
+temp->data = (char*)c;
+temp->next = p;
+temp->back = list;
+if (p != NULL)
+p->back = temp;
+//	fprintf(stderr, "%s", temp->data);
+write(STDERR_FILENO, temp->data, 1);*/

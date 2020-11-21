@@ -28,7 +28,20 @@
 # define DOWN_KEY				4348699
 # define DEL_KEY				0x7E335B1B
 
+typedef struct			s_node
+{
+	struct s_node	*next;
+	struct s_node	*back;
+/*	long 			data; */
+	char			*data;
+//	char			**argv;
+//	int				fd;
+//	int				argc;
+//	int				num;
+}						t_node;
+
 typedef struct termios	t_term;
+
 void		clean_window(void);
 int			ft_printnbr(int nbr);
 void		set_term_type(int term_type);
@@ -38,26 +51,16 @@ void		set_term_canon(void);
 void		termtype(void);
 char		key_process(long c);
 int			win_size(void);
-int			read_line(void);
+int			read_line(t_node *list, t_node *root);
 
 /* Struct of read */
 
-typedef struct			s_node
-{
-	struct s_node	*next;
-	struct s_node	*back;
-/*	long 			data; */
-	char			data;
-//	char			**argv;
-//	int				fd;
-//	int				argc;
-//	int				num;
-}						t_node;
+
 
 /* Functions of read struct */
 
 struct		s_node				*init();
-struct	s_node					*addelem(t_node *list, t_node *root);
+struct	s_node					*addelem(t_node *list, t_node *root, long c);
 struct		s_node				*deletelem(t_node *list);
 struct		s_node				*deletehead(t_node *root);
 struct	s_node					*k_move(t_node *list, t_node *root, long c);
@@ -91,8 +94,8 @@ long 	long_read_line(void);
 
 
 
-
-
+int		checkout(long c);
+int					win_size(void);
 
 struct s_node 	*escape(t_node *list,  t_node *root, long c);
 

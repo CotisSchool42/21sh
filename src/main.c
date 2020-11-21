@@ -52,14 +52,20 @@ void		signal_handler(int signo)
 
 int     main(int argc, char **argv, char **env)
 {
+	t_node	*list;
+	t_node	*root;
+	(void)argc;
+	(void)argv;
+	(void)env;
+
     termtype();
 	get_term_conf();
 	set_term_non_canon();
 	init_signal_handlers();
-    read_line();
+	root = init();
+	list = root;
+    read_line(list, root);
 	set_term_canon();
-	(void)argc;
-	(void)argv;
-	(void)env;
+
     return (0);
 }

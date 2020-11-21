@@ -1,19 +1,16 @@
 #include "sh.h"
 
-int		esc_key(long c)
+int					win_size(void)
 {
-	(void)c;
-	set_term_canon();
-	exit(0);
-}
-int		spc_key(long c)
-{
-	(void)c;
+	struct winsize	w;
+
+	ioctl(STDERR_FILENO, TIOCGWINSZ, &w);
+	fprintf(stderr, "%d\n",w.ws_col);
+	fprintf(stderr, "%d\n",w.ws_row);
+	/*if (win_str(line, argc, w) == -1)
+	{
+		ft_putstr_fd("Error of size\n", STDERR_FILENO);
+		return (-1);
+	}*/
 	return (0);
 }
-
-/*
-struct s_node		*k_actions(long c)
-{
-
-}*/

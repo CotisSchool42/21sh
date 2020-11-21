@@ -1,5 +1,7 @@
 #include "sh.h"
 
+
+
 void		print_list(t_node *root)
 {
 	t_node *temp;
@@ -8,32 +10,27 @@ void		print_list(t_node *root)
 	write(STDIN_FILENO, "LINE:", 30);
 	while (temp != NULL)
 	{
-		write(STDIN_FILENO, &temp->data, 1);
+		write(STDIN_FILENO, temp->data, 1);
 		temp = temp->next;
 	}
 	exit (0);
 }
 
-int		read_line(void)
+int		read_line(t_node *list, t_node *root)
 {
-	t_node	*list;
-	t_node	*root;
 	long	c;
 
-	list = NULL;
 	c = 0;
 	while (1)
 	{
-		if (list == NULL)	/* Инициализация и проверка первого элемента */
-		{
-				root = init();
-				list = root;
-		}
-		else
-		{
-			list = addelem(list, root);
+		read(STDOUT_FILENO, &c , 8);
+//		if (checkout(c) != 0 && list->data != NULL) 		 /* Стрелочки */
+			list = addelem(list, root, c);
+//		else
+//		{
+
 	//		write(STDIN_FILENO, &list->back->data, 1);
-		}
+//		}
 	//	list = k_move(list, root, c);
 //		if (c == BSP_KEY)
 	//		list = deletelem(list);
