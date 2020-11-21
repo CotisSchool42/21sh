@@ -14,16 +14,16 @@
 
 struct		s_node				*init()
 {
-	t_node *list;
+	t_node *temp;
 	int 	i;
 
-	list = (t_node *)ft_memalloc(sizeof(t_node));
-	list->data = "Overlord:";
-	i = ft_strlen(list->data);
-	list->next = NULL;
-	list->back = NULL;
-	write(STDERR_FILENO, list->data, i);
-	return (list);
+	temp = (t_node *)ft_memalloc(sizeof(t_node));
+	temp->data = "Overlord:"; /* PATH */
+	i = ft_strlen(temp->data);
+	temp->next = NULL;
+	temp->back = NULL;
+	write(STDERR_FILENO, temp->data, i);
+	return (temp);
 }
 
 int		checkout(long c)
@@ -47,7 +47,7 @@ struct	s_node					*endpoint(t_node *list, t_node *root)
 	return (tail);
 }
 
-struct	s_node					*deletelem(t_node *list)
+struct	s_node					*deletelem(t_node *list, t_node *root)
 {
 	t_node *back;
 	t_node *next;
@@ -56,9 +56,9 @@ struct	s_node					*deletelem(t_node *list)
 	next = list->next;
 	tputs(tgetstr("le", NULL), 1, ft_printnbr);
 	tputs(tgetstr("dc", NULL), 1, ft_printnbr);
-	if (back != NULL)
+	if (back != root)
 		back->next = list->next;
-	if (next != NULL)
+	if (next != root)
 		next->back = list->back;
 	free(list);
 	return (back);
@@ -80,29 +80,20 @@ struct	s_node					*addelem(t_node *list, t_node *root, long c)
 {
 	t_node		*temp;
 	t_node		*p;
+	char		buf;
 
-	if (c == LEFT_KEY || c == RIGHT_KEY)
-	{
-		list = escape(list, root, c);
-		return (list);
-	}
 	if (c == BSP_KEY)
-	{
-		list = deletelem(list);
-//	write(STDERR_FILENO, &list->data, 1);
 		return (list);
-	}
-	if (c == CHAR_RETURN)
-		return (list);
+	buf = (char)c;
 	temp = (t_node *)ft_memalloc(sizeof(t_node));
 	p = list->next;
 	list->next = temp;
 	temp->next = p;
-	temp->data = "d";
+	temp->data = &buf;
 	temp->back = list;
 	if (p != NULL)
 		p->back = temp;
-	write(STDERR_FILENO, list->data, 1);
+	write(STDERR_FILENO, temp->data, 1);
 	return (temp);
 }
 

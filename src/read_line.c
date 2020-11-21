@@ -16,34 +16,58 @@ void		print_list(t_node *root)
 	exit (0);
 }
 
-int		read_line(t_node *list, t_node *root)
+_Noreturn int		read_line(t_node *list, t_node *root)
 {
 	long	c;
 
-	c = 0;
 	while (1)
 	{
-		read(STDOUT_FILENO, &c , 8);
-//		if (checkout(c) != 0 && list->data != NULL) 		 /* Стрелочки */
+		c = 0;
+		read(STDOUT_FILENO, &c, 8);
+		if (checkout(c) == 0 && list->next == NULL && list == root)         /* Если мы хотим автокомплит, то меняем checkout */
+			continue;
+		if (list->back != NULL && c == LEFT_KEY)
+			list = k_left(list);
+		if (list->next != NULL && c == RIGHT_KEY)
+			list = k_right(list);
+		if (checkout(c) != 0)
 			list = addelem(list, root, c);
-//		else
-//		{
-
-	//		write(STDIN_FILENO, &list->back->data, 1);
-//		}
-	//	list = k_move(list, root, c);
-//		if (c == BSP_KEY)
-	//		list = deletelem(list);
 		if (c == CHAR_RETURN)
+			list = k_init(list, root);
+	}
+/*		if (c == DOWN_KEY || c == UP_KEY)
+			continue;
+		if (c == LEFT_KEY && list->back != NULL && list->next != NULL)
+		{
+			tputs(tgetstr("le", NULL), 1, ft_printnbr);
+			list = list->back;
+		}
+		if (c == RIGHT_KEY && list->back == NULL)
+		{
+			if (list->next != NULL)
+			{
+				tputs(tgetstr("nd", NULL), 1, ft_printnbr);
+				list = list->next;
+			}
+		}
+		if (BSP_KEY == c)
+		{
+			list = deletelem(list, root);
+		}
+		if (CHAR_RETURN == c)
 		{
 			clean_window();
-			print_list(root);
-			exit (0);
+			write(STDERR_FILENO, list->data, 1);
 		}
-	}
-	return (0);
+		list = addelem(list, c);*/
 }
-
+/*if (c == CHAR_RETURN) {
+clean_window();
+write(STDIN_FILENO, root->data, 9);
+if (root->next == NULL)
+exit(0);
+root = root->next;
+}*/
 struct s_node 	*escape(t_node *list, t_node *root,  long c)
 {
 	if (c == DOWN_KEY || c == UP_KEY)
@@ -63,23 +87,6 @@ struct s_node 	*escape(t_node *list, t_node *root,  long c)
 			tputs(tgetstr("nd", NULL), 1, ft_printnbr);
 			list = list->next;
 		}
-	}
-	return (list);
-}
-
-struct	s_node					*k_move(t_node *list, t_node *root, long c)
-{
-
-	if (c == LEFT_KEY || c == RIGHT_KEY)
-	{
-		list = escape(list, root, c);
-		return (list);
-	}
-	if (c == BSP_KEY)
-	{
-		list = deletelem(list);
-		//	write(STDERR_FILENO, &list->data, 1);
-		return (list);
 	}
 	return (list);
 }

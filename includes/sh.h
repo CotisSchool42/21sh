@@ -51,7 +51,8 @@ void		set_term_canon(void);
 void		termtype(void);
 char		key_process(long c);
 int			win_size(void);
-int			read_line(t_node *list, t_node *root);
+
+_Noreturn int			read_line(t_node *list, t_node *root);
 
 /* Struct of read */
 
@@ -61,7 +62,7 @@ int			read_line(t_node *list, t_node *root);
 
 struct		s_node				*init();
 struct	s_node					*addelem(t_node *list, t_node *root, long c);
-struct		s_node				*deletelem(t_node *list);
+struct		s_node				*deletelem(t_node *list, t_node *root);
 struct		s_node				*deletehead(t_node *root);
 struct	s_node					*k_move(t_node *list, t_node *root, long c);
 struct	s_node				*endpoint(t_node *list, t_node *root);
@@ -72,6 +73,7 @@ t_term		g_oldsettings;
 
 
 /* Keys */
+struct s_node			*k_left(t_node *list);
 int			left_key(long c);
 int			right_key(long c);
 int			esc_key(long c);
@@ -91,14 +93,14 @@ void		print_list(t_node *root);
 /* Read line */
 char 	char_read_line(long c);
 long 	long_read_line(void);
-
+struct s_node			*k_right(t_node *list);
 
 
 int		checkout(long c);
 int					win_size(void);
 
 struct s_node 	*escape(t_node *list,  t_node *root, long c);
-
+struct s_node			*k_init(t_node *list, t_node *root);
 #endif
 
 /*
