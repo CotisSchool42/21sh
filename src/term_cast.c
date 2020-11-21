@@ -45,6 +45,8 @@ void		set_term_non_canon(void)
 //	g_newsettings.c_cflag &= ~(CSIZE | PARENB);
 //	g_newsettings.c_cflag |= CS8;
 	tputs(tgetstr("cl", NULL), 1, ft_printnbr);
+	//tputs(tgetstr("am", NULL), 1, ft_printnbr);
+//	tputs(tgetstr("bw", NULL), 1, ft_printnbr);
 	tputs(tgetstr("ti", NULL), 1, ft_printnbr);
 	g_newsettings.c_cc[VMIN] = 1;
 	g_newsettings.c_cc[VTIME] = 1;

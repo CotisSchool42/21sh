@@ -33,7 +33,8 @@ typedef struct			s_node
 	struct s_node	*next;
 	struct s_node	*back;
 /*	long 			data; */
-	char			*data;
+	char			*path;
+	char			data;
 //	char			**argv;
 //	int				fd;
 //	int				argc;
@@ -62,7 +63,7 @@ _Noreturn int			read_line(t_node *list, t_node *root);
 
 struct		s_node				*init();
 struct	s_node					*addelem(t_node *list, t_node *root, long c);
-struct		s_node				*deletelem(t_node *list, t_node *root);
+struct		s_node				*deletelem(t_node *list);
 struct		s_node				*deletehead(t_node *root);
 struct	s_node					*k_move(t_node *list, t_node *root, long c);
 struct	s_node				*endpoint(t_node *list, t_node *root);
@@ -88,7 +89,7 @@ void		print_line(char *buf);
 /* signal.h */
 void		signal_handler(int signo);
 void		init_signal_handlers(void);
-void		print_list(t_node *root);
+struct s_node		*print_list(t_node *root);
 
 /* Read line */
 char 	char_read_line(long c);
@@ -100,11 +101,11 @@ int		checkout(long c);
 int					win_size(void);
 
 struct s_node 	*escape(t_node *list,  t_node *root, long c);
+struct	s_node					*addelem_center(t_node *list, t_node *root, long c);
 struct s_node			*k_init(t_node *list, t_node *root);
 #endif
 
 /*
- *
 ** Struct termios in header termios.h have some members
 ** struct termios {
 **       tcflag_t        c_iflag;         input flags
