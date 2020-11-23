@@ -22,6 +22,12 @@ int			ft_printnbr(int nbr)
 	return (write(STDERR_FILENO, &nbr, 1));
 }
 
+int 		ft_puchr(char nbr)
+{
+	return (write(STDERR_FILENO, &nbr, 1));
+}
+
+
 void		get_term_conf(void)
 {
 	tcgetattr(STDIN_FILENO, &g_newsettings);

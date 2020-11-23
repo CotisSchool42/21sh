@@ -84,79 +84,53 @@ struct	s_node					*deletelem(t_node *list)
 ** ADD ELEMENTS TO LIST, INIT ROOT AND DELETE ELEMENTS
 */
 
+
 struct	s_node					*addelem(t_node *list, t_node *root, long c)
 {
 	t_node		*temp;
 	t_node		*p;
 	char		buf;
 
+	(void) root;
 	if (c == BSP_KEY)
 		return (deletelem(list));
-	if (list->next != NULL && list->back != root)
+	buf = (char) c;
+	temp = (t_node *) ft_memalloc(sizeof(t_node));
+	p = list->next;
+	list->next = temp;
+	temp->next = p;
+	temp->data = buf;
+	temp->back = list;
+	if (temp->back != NULL && temp->next != NULL)
 	{
-		//	temp = addelem_center(list, root, c);
-		(void) root;
-		temp = (t_node *) ft_memalloc(sizeof(t_node));
-		buf = (char)c;
-		p = list->next;
-		list->next = temp;
-		temp->next = p;
-		temp->data = buf;
-		temp->back = list;
-		if (p != NULL)
-			p->back = temp;
-	//	tputs(tgetstr("nd", NULL), 1, ft_printnbr);
-		write(STDERR_FILENO, &list->data, 1);
-		//print_list(temp);
-		return (list);
+		return (addelem_center(list, root, c));
 	}
-	else {
-		(void) root;
-		buf = (char) c;
-		temp = (t_node *) ft_memalloc(sizeof(t_node));
-		p = list->next;
-		list->next = temp;
-		temp->next = p;
-		temp->data = buf;
-		temp->back = list;
-		if (p != NULL)
-			p->back = temp;
-	//	write(STDERR_FILENO, &temp->data, 1);
-		return (temp);
-	}
-	return (list);
-}
+	else
+		write(STDERR_FILENO, &temp->data, 1);
+	return (temp);
+ }
 
-struct	s_node					*addelem_center(t_node *list, t_node *root, long c)
+ struct	s_node					*addelem_center(t_node *list, t_node *root, long c)
 {
 	t_node		*temp;
-	t_node		*p;
-	char		buf;
 
-	(void)root;
-	if (list->back != NULL && list->next != NULL)
-	{
-		temp = (t_node *)ft_memalloc(sizeof(t_node));
-		buf = (char)c;
-		p = list->next;
-		list->next = temp;
-		temp->next = p;
-		tputs(tgetstr("im", NULL), 1, ft_printnbr);
-		tputs(tgetstr("ic", NULL), 1, ft_printnbr);
-		tputs(tgetstr("nd", NULL), 1, ft_printnbr);
-
-		temp->data = buf;
-		temp->back = list;
-		return (temp);
+	(void)c;
+	 (void)root;
+	temp = list;
+	while (temp->back != NULL) {
+		tputs(tgetstr("le", NULL), 1, ft_printnbr);
+		temp = temp->back;
 	}
-/*	else if (list->back != NULL)
+	while (temp->next != NULL)
 	{
-		temp = (t_node *)ft_memalloc(sizeof(t_node));
-		buf = (char)c;
-		p = list->back;
-		tputs(tgetstr("nd", NULL), 1, ft_printnbr);
-		tputs(tgetstr("ic", NULL), 1, ft_printnbr);
-		return (temp);
-	}*/
-return (list);
+		temp = temp->next;
+		write(STDERR_FILENO, &temp->data, 1);
+	}
+/*	 while (temp != list)
+	 {
+		 temp = temp->back;
+		 tputs(tgetstr("le", NULL), 1, ft_printnbr);
+	 }*/
+//	tputs(tgetstr("le", NULL), 1, ft_printnbr);
+	return (temp);
 }

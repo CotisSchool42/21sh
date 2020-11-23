@@ -28,6 +28,8 @@
 # define DOWN_KEY				4348699
 # define DEL_KEY				0x7E335B1B
 
+
+int 		ft_puchr(char nbr);
 typedef struct			s_node
 {
 	struct s_node	*next;
@@ -52,7 +54,6 @@ void		set_term_canon(void);
 void		termtype(void);
 char		key_process(long c);
 int			win_size(void);
-
 _Noreturn int			read_line(t_node *list, t_node *root);
 
 /* Struct of read */
@@ -89,7 +90,7 @@ void		print_line(char *buf);
 /* signal.h */
 void		signal_handler(int signo);
 void		init_signal_handlers(void);
-struct s_node		*print_list(t_node *root);
+struct s_node		*print_list(t_node *temp);
 
 /* Read line */
 char 	char_read_line(long c);

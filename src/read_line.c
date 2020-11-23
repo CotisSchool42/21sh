@@ -2,18 +2,16 @@
 
 
 
-struct s_node		*print_list(t_node *root)
+struct s_node		*print_list(t_node *temp)
 {
-	root=root->next;
-
 //	tputs(tgetstr("nd", NULL), 1, ft_printnbr);
-	while (root != NULL)
+	while (temp->next != NULL)
 	{
-	//	tputs(tgetstr("nd", NULL), 1, ft_printnbr);
-		write(STDIN_FILENO, &root->data, 8);
-		root = root->next;
+		tputs(tgetstr("le", NULL), 1, ft_printnbr);
+		write(STDIN_FILENO, &temp->data, 1);
+		temp = temp->next;
 	}
-	return (root);
+	return (temp);
 }
 
 _Noreturn int		read_line(t_node *list, t_node *root)
@@ -35,10 +33,21 @@ _Noreturn int		read_line(t_node *list, t_node *root)
 /*		tputs(tgetstr("ho", NULL), 1, ft_printnbr); НАЧАЛО СТРОКИ */
 		if (c == CHAR_RETURN)
 		{
-	//		tputs(tgetstr("AL", NULL), 1, ft_printnbr);
 		//	clean_window();
-			tputs(tgetstr("AL", NULL), 1, ft_printnbr);
-			//list = k_init(list, root);
+			t_node *temp;
+			temp = root;
+			while (temp->next != NULL)
+			{
+				write(STDERR_FILENO, &temp->data, 1);
+				temp = temp->next;
+			}
+			while (root->next != NULL) {
+				free(root);
+				root = root->next;
+			}
+			write(STDIN_FILENO, "\n", 1);
+			list = root;
+			list = k_init(list, root);
 		}
 	}
 }
